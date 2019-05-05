@@ -24,11 +24,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class StudentsLogin extends AppCompatActivity {
 
-    private EditText Name;
-    private EditText Password;
+    private EditText Name,Password;
     private TextView Info;
-    private Button Login;
-    private Button Register;
+    private Button Login,Register;
     private int counter = 3;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -55,10 +53,10 @@ public class StudentsLogin extends AppCompatActivity {
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        if(user != null){
+        /*if(user != null){
             finish();
-            startActivity(new Intent(StudentsLogin.this,MapsActivity.class));
-        }
+            startActivity(new Intent(StudentsLogin.this,Home.class));
+        }*/
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,9 +91,8 @@ public class StudentsLogin extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(getApplicationContext(), "Login successfull" , Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(StudentsLogin.this,MapsActivity.class));
+                                startActivity(new Intent(StudentsLogin.this,Home.class));
                             } else {
-                                progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Invalid Email or Password" , Toast.LENGTH_SHORT).show();
                                 counter--;
 

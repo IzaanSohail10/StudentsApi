@@ -64,25 +64,6 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <EditText
-        android:id="@+id/Repassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textColorHint="@color/gray"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-
-    <EditText
         android:id="@+id/id"
         android:layout_width="match_parent"
         android:layout_height="47dp"
@@ -99,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Repassword" />
+        app:layout_constraintTop_toBottomOf="@+id/reconfirm" />
 
     <EditText
         android:id="@+id/gaurdiancnic"
@@ -118,7 +99,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id" />
+        app:layout_constraintTop_toBottomOf="@+id/id"
+        android:imeOptions="actionSend"/>
 
     <Button
         android:id="@+id/RegBtn"
@@ -129,7 +111,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:text="@string/register"
@@ -139,8 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pointno"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/Pointno" />
 
     <EditText
         android:id="@+id/email"
@@ -162,7 +143,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/pointno"
+        android:id="@+id/reconfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -170,16 +151,32 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="Point number: 23"
+        android:hint="Re-Enter Password"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <EditText
+        android:id="@+id/Pointno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:hint="Point no. = 23"
         android:inputType="number"
         android:textColor="@color/white"
         android:textColorHint="@color/gray"
         android:textSize="24sp"
-        android:imeOptions="actionSend"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gaurdiancnic" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

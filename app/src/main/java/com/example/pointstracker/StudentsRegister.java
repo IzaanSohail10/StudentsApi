@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentsRegister extends AppCompatActivity{
 
-    private EditText sname,semail,spassword,srepassword,sstudentid,sgaurdiancnic,spointnum;
+    private EditText sname,semail,spassword,sstudentid,sgaurdiancnic,spointnumber,sreconfirm;
     private Button RegBtn;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
@@ -36,13 +36,13 @@ public class StudentsRegister extends AppCompatActivity{
         setContentView(R.layout.activity_students_register);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-        spointnum = (EditText)findViewById(R.id.pointno);
+        spointnumber = (EditText)findViewById(R.id.Pointno);
         sname = (EditText)findViewById(R.id.name);
         spassword = (EditText)findViewById(R.id.password);
-        srepassword = (EditText)findViewById(R.id.Repassword);
         sstudentid = (EditText)findViewById(R.id.id);
         sgaurdiancnic = (EditText)findViewById(R.id.gaurdiancnic);
         semail = (EditText)findViewById(R.id.email);
+        sreconfirm = (EditText)findViewById(R.id.reconfirm);
         RegBtn = (Button)findViewById(R.id.RegBtn);
         RegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,15 +52,12 @@ public class StudentsRegister extends AppCompatActivity{
                         register();
                     break;
                 }
-
             }
         });
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
     }
-
-
 
     private void register(){
 
@@ -69,31 +66,15 @@ public class StudentsRegister extends AppCompatActivity{
         final String name = sname.getText().toString().trim();
         final String email = semail.getText().toString().trim();
         final String password = spassword.getText().toString().trim();
-        final String Repassword = srepassword.getText().toString().trim();
         final String id = sstudentid.getText().toString().trim();
         final String gcnic =  sgaurdiancnic.getText().toString().trim();
-        final String pointno = spointnum.getText().toString().trim();
-
+        final String pointnumber = spointnumber.getText().toString().trim();
+        final String reconfirm = sreconfirm.getText().toString().trim();
         try {
             int num = Integer.parseInt(gcnic);
             Log.i("",num+"is a number");
         }catch (NumberFormatException e){
             Log.i("",gcnic+"is not a number");
-        }
-
-        if (pointno.isEmpty()) {
-            spointnum.setError("Point number empty");
-            spointnum.requestFocus();
-            progressDialog.dismiss();
-            return;
-        }
-
-        if(pointno.length() != 2)
-        {
-            spointnum.setError("Invalid Point number");
-            spointnum.requestFocus();
-            progressDialog.dismiss();
-            return;
         }
 
         if (name.isEmpty()){
@@ -113,7 +94,7 @@ public class StudentsRegister extends AppCompatActivity{
         char[] chars = email.toCharArray();
         System.out.println(chars.length);
 
-for(int i = 0; i < chars.length; i++)
+        for(int i = 0; i < chars.length; i++)
         {
             if(chars[i] == '@'){
                 if (chars[i+1] == 'n' && chars[i+2] == 'u' && chars[i+3] == '.' && chars[i+4] == 'e' && chars[i+5] == 'd' && chars[i+6] == 'u' && chars[i+7] == '.' && chars[i+8] == 'p' && chars[i+9] == 'k'){
@@ -147,22 +128,20 @@ for(int i = 0; i < chars.length; i++)
             return;
         }
 
+        if (reconfirm.equals(password)) {
+        }else{
+            sreconfirm.setError("passwords do not match");
+            sreconfirm.requestFocus();
+            progressDialog.dismiss();
+            return;
+        }
+
         if (password.length() != 8){
             spassword.setError("Invalid password entered");
             spassword.requestFocus();
             progressDialog.dismiss();
             return;
         }
-
-        if(password.equals(Repassword))
-        {
-        }else{
-            srepassword.setError("Password does not match");
-            srepassword.requestFocus();
-            progressDialog.dismiss();
-            return;
-        }
-
 
         if (id.isEmpty()){
             sstudentid.setError("ID Field is empty");
@@ -191,6 +170,13 @@ for(int i = 0; i < chars.length; i++)
             progressDialog.dismiss();
             return;
         }
+       if (pointnumber.length() != 2)
+       {
+           spointnumber.setError("Invalid Point number");
+           spointnumber.requestFocus();
+           progressDialog.dismiss();
+           return;
+       }
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -200,7 +186,7 @@ for(int i = 0; i < chars.length; i++)
                 {
                     progressDialog.dismiss();
                     //store data in firebase
-                    Students students=new Students(name,id,gcnic,email,pointno);
+                    Students students=new Students(name,id,gcnic,email,pointnumber);
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     FirebaseDatabase.getInstance().getReference("Student Register")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -215,6 +201,7 @@ for(int i = 0; i < chars.length; i++)
                             else
                             {
                                 Toast.makeText(getApplicationContext(), "Registeration Unsuccessfull" , Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         }
                     });
